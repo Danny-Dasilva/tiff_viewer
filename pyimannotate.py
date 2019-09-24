@@ -99,27 +99,27 @@ class Annotationscene(object):
         self.imData = b64encode(self.imageData).decode('utf-8')
         self.shapes=[[(point.x(), point.y()) for point in poly] for poly in self.polygons]
         self.shapes_to_pandas().to_csv(re.search(re.compile('(.+?)(\.[^.]*$|$)'), filename).group(1)+'.csv', sep=',')
+        
+        lines = list()
 
-        #teswt
+        members= self.object_types
+
+        with open(file22, 'r') as readFile:
+            reader = csv.reader(readFile)
+            for row in reader:
+                lines.append(row)
+                for field in row:
+                    if field == members:
+                        lines.remove(row)
+
+        with open(file22, 'w') as writeFile:
+            writer = csv.writer(writeFile)
+            writer.writerows(lines)
+
         with open(file22, 'a') as f:
             self.shapes_to_pandas().to_csv(f, header=False)
 
         
-        # try:
-        #     with open(self.filename, 'w') as f:
-
-        #         json.dump({
-        #             'objects': self.shapes,
-        #             'type': self.object_types,
-        #             'width/height': self.imsizes,
-        #             'lineColor': self.lineColor,
-        #             'fillColor': self.fillColor,
-        #             'imagePath': self.imagePath,
-        #             'imageData': self.imData},
-        #             f, ensure_ascii=True, indent=2)
-        # except:
-        #     print("error")
-        #     pass
 
  
 
@@ -464,9 +464,9 @@ class SubQGraphicsScene(QGraphicsScene):
 
     def selectShapebyPoint(self, point):
         """Select the first shape created which contains this point."""
-        if self.vertexSelected(): # A vertex is marked for selection.
-            self.selectedShape.highlightVertex(self.selectedVertex)
-            return
+        # if self.vertexSelected(): # A vertex is marked for selection.
+        #     self.selectedShape.highlightVertex(self.selectedVertex)
+        #     return
 
         itemUnderMouse=self.itemAt(point, QTransform())
         if itemUnderMouse in self.items()[:-1]:
@@ -688,6 +688,7 @@ class MainWindow(QMainWindow):
             
     def loadjson1(self, filename):
         try:
+
             with open('test2.csv', newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
                 test = []
