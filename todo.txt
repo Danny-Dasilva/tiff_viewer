@@ -1,0 +1,3 @@
+le "pyimannotate.py", line 116, in save
+    lines.remove(row)
+ValueError: list.remove(x): x not in list
