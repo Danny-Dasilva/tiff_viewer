@@ -676,7 +676,6 @@ class MainWindow(QMainWindow):
                 self.imageData = process(path, None)
             filename1 = os.path.basename(os.path.normpath(path))
             filename1, file_extension = os.path.splitext(filename1)
-            print(filename1, "ahhhh")
             self.loadjson1(filename1)
             image = QImage.fromData(self.imageData)
             self.imsizes=(image.size().width(), image.size().height())
@@ -707,9 +706,7 @@ class MainWindow(QMainWindow):
                 # print(len(here[0]), "length")
                 print(len(here[0]))
                 if len(here[0]) > 0:
-                    print("if statement checked")
-                    print("if statement checked")
-                    print("if statement checked")
+                 
                     self.shapestoload = here
                     self.object_types= ['Polygon']
                     self.imagePath = None
