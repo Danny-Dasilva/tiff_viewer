@@ -2,6 +2,8 @@
 
 
 `cd tiff_viewer`
+
+
 `python3 pyannotate.py`
 
  
