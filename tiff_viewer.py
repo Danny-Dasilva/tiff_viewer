@@ -9,16 +9,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import csv
 
-# def newIcon(icon):
-#     return QIcon(':/' + icon)
 
-# def newButton(text, icon=None, slot=None):
-#     b = QPushButton(text)
-#     if icon is not None:
-#         b.setIcon(newIcon(icon))
-#     if slot is not None:
-#         b.clicked.connect(slot)
-#     return b
 
 
 class ToolButton(QToolButton):
@@ -702,11 +693,8 @@ class MainWindow(QMainWindow):
                         test.append([x,y])
 
                 here = [test]
-                # print(here, "hereeeeee")
-                # print(len(here[0]), "length")
                 print(len(here[0]))
                 if len(here[0]) > 0:
-                 
                     self.shapestoload = here
                     self.object_types= ['Polygon']
                     self.imagePath = None
