@@ -29,15 +29,6 @@ def process(filename, default=None):
     except:
         return default
 
-
-def process1(filename, default=None):
-    try:
-        with open(filename, 'rb') as f:
-            return f.read()
-    except:
-        return default
-
-
 def newAction(parent, text, slot=None, shortcut=None, icon=None,
         tip=None, checkable=False, enabled=True):
     """Create a new action and assign callbacks, shortcuts, etc."""
@@ -89,7 +80,7 @@ class Annotationscene(object):
 
     def save(self):
         filename = "data"
-        file22 = "test2.csv"
+        csv_file = "test2.csv"
         self.imData = b64encode(self.imageData).decode('utf-8')
         self.shapes=[[(point.x(), point.y()) for point in poly] for poly in self.polygons]
         self.shapes_to_pandas().to_csv(re.search(re.compile('(.+?)(\.[^.]*$|$)'), filename).group(1)+'.csv', sep=',')
@@ -98,7 +89,7 @@ class Annotationscene(object):
 
         members= self.object_types
 
-        with open(file22, 'r') as readFile:
+        with open(csv_file, 'r') as readFile:
             reader = csv.reader(readFile)
             for row in reader:
                 lines.append(row)
@@ -106,11 +97,11 @@ class Annotationscene(object):
                     if field == members:
                         lines.remove(row)
 
-        with open(file22, 'w') as writeFile:
+        with open(csv_file, 'w') as writeFile:
             writer = csv.writer(writeFile)
             writer.writerows(lines)
 
-        with open(file22, 'a') as f:
+        with open(csv_file, 'a') as f:
             self.shapes_to_pandas().to_csv(f, header=False)
 
         
@@ -264,21 +255,17 @@ class SubQGraphicsScene(QGraphicsScene):
         return self.selectedVertex is not None
 
     def keyPressEvent(self, event):
-        # if event.key() == Qt.Key_E:
-        #     self.mode=self.DRAWING
-        #     self.overrideCursor(CURSOR_DRAW)
-        #     print('Drawing')
-        # if event.key() == Qt.Key_N:
-        #     self.mode=self.NAVIGATION
-        #     self.overrideCursor(CURSOR_GRAB)
-        #     print('Navigating')
-        # if event.key() == Qt.Key_M:
-        #     self.mode=self.MOVING
-        #     print('Moving')
+        if event.key() == Qt.Key_E:
+            self.mode=self.DRAWING
+            self.overrideCursor(CURSOR_DRAW)
+            print('Drawing')
+        if event.key() == Qt.Key_M:
+            self.mode=self.MOVING
+            print('Moving')
         if event.key() == Qt.Key_Delete:
             self.deleteSelected()
-        # if event.key() == Qt.Key_C:
-        #     self.triggerClosure()
+        if event.key() == Qt.Key_C:
+            self.triggerClosure()
             
 
     def triggerClosure(self):
