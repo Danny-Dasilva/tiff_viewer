@@ -73,7 +73,6 @@ class Annotationscene(object):
         df=pd.DataFrame(columns=['width', 'height', 'Object', 'X', 'Y'])
 
         for i, obj in enumerate(objects):
-            print(i, obj, "yeeeee")
             X, Y=list(zip(*obj))
             df=df.append(pd.DataFrame({'width': imsize[0], 'height': imsize[1], 'Object': i+1, 'Type': self.object_types, 'X': X, 'Y': Y}), ignore_index=True)
         return df
@@ -548,8 +547,6 @@ class MainWindow(QMainWindow):
         openshort = action('&Open', self.handleOpen,'Ctrl+O', 'open', 'Open image')
         save = action('&Save', self.saver,
            'Ctrl+S', 'save', 'Save labels to file', enabled=True)
-        #linecolorselect = action('&Select line color2', self.setLineColor, 'Ctrl+G')
-        #shapecolorselect = action('&Select shape color', self.setShapeColor, 'Ctrl+H')
         setEditing = action('&Drawing Mode', self.setEditing, 'E', 'Drawing', 'Enable drawing mode')
         setMoving = action('&Moving Mode', self.setMoving, 'M', 'Moving', 'Enable moving mode')
         setNavigating = action('&Navigation Mode', self.setNavigating, 'N', 'Navigating', 'Enable navigation mode')
@@ -599,7 +596,6 @@ class MainWindow(QMainWindow):
         # dialogue.selectFile(self.imname)
         # print(self.imname)
         # dialogue.exec()
-        # print("333333")
         savepath= self.imname
         print(savepath)
         if savepath:
